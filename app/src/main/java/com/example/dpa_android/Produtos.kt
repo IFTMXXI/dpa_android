@@ -1,13 +1,13 @@
 package com.example.dpa_android
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import com.example.dpa_android.data.model.Produto
 import com.example.dpa_android.databinding.FragmentProdutosBinding
-import com.example.dpa_android.ui.dashboard.DashboardFragment
 import kotlinx.android.synthetic.main.fragment_produtos.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,14 +35,18 @@ class Produtos : Fragment(R.layout.fragment_produtos) {
             param2 = it.getString(ARG_PARAM2)
         }
 
-
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProdutosBinding.bind(view)
-        //binding.textView4.text = DashboardFragment.getProdutos()
-
+        val args = arguments
+        val produto = args!!.getSerializable("produto") as Produto
+        binding.textView4.text = produto.nome
+        binding.imageView3.setImageResource(produto.imagem)
+        binding.textView3.text = "Valor: "+produto.valor
+        binding.textView5.text = produto.descricao
     }
 
     override fun onCreateView(

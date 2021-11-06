@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.dpa_android.MainAdapter
 import com.example.dpa_android.R
 import com.example.dpa_android.data.model.Produto
 import com.example.dpa_android.databinding.FragmentDashboardBinding
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import java.io.Serializable
 
 
 class DashboardFragment : Fragment() {
@@ -86,7 +84,8 @@ class DashboardFragment : Fragment() {
         gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val view = view
             if (view != null) {
-                val bundle = bundleOf("produtoId" to position)
+                val bundle = Bundle()
+                bundle.putSerializable("produto", produtos[position] as Serializable)
                 view.findNavController().navigate(R.id.navigationProdutos,bundle)
             }
         }

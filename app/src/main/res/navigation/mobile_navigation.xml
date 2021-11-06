@@ -19,6 +19,9 @@
         <action
             android:id="@+id/navigationCreateProduct"
             app:destination="@id/createProduct" />
+        <action
+            android:id="@+id/navigationProdutos"
+            app:destination="@id/produtos" />
     </fragment>
 
     <fragment
@@ -38,6 +41,9 @@
         <action
             android:id="@+id/action_createProduct_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
+        <action
+            android:id="@+id/action_createProduct_to_navigation_dashboard2"
+            app:destination="@id/navigation_dashboard" />
     </fragment>
     <fragment
         android:id="@+id/createNews"
@@ -46,5 +52,18 @@
         <action
             android:id="@+id/action_createNews_to_navigation_notifications"
             app:destination="@id/navigation_notifications" />
+    </fragment>
+    <fragment
+        android:id="@+id/produtos"
+        android:name="com.example.dpa_android.Produtos"
+        android:label="fragment_produtos"
+        tools:layout="@layout/fragment_produtos" >
+        <action
+            android:id="@+id/action_produtos_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+        <argument
+            android:name="produtoId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

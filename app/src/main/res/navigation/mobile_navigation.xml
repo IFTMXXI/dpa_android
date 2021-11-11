@@ -32,6 +32,9 @@
         <action
             android:id="@+id/navigationCreateNews"
             app:destination="@id/createNews" />
+        <action
+            android:id="@+id/navigationNews"
+            app:destination="@id/news" />
     </fragment>
     <fragment
         android:id="@+id/createProduct"
@@ -65,5 +68,14 @@
             android:name="produtoId"
             app:argType="integer"
             android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/news"
+        android:name="com.example.dpa_android.News"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_news_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
     </fragment>
 </navigation>

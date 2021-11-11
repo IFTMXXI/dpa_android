@@ -13,6 +13,7 @@ import com.example.dpa_android.MainAdapter
 import com.example.dpa_android.R
 import com.example.dpa_android.data.model.Produto
 import com.example.dpa_android.databinding.FragmentDashboardBinding
+import com.example.dpa_android.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.io.Serializable
 
@@ -42,7 +43,7 @@ class DashboardFragment : Fragment() {
         dashboardViewModel =
             ViewModelProvider(this).get(DashboardViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding =  FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         thiscontext = getActivity()?.getApplicationContext()
@@ -90,6 +91,8 @@ class DashboardFragment : Fragment() {
             }
         }
     }
+
+
 
 
     override fun onDestroyView() {

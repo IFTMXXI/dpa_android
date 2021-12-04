@@ -14,9 +14,14 @@ import com.example.dpa_android.databinding.FragmentHomeBinding
 import com.example.dpa_android.data.model.Produto
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.JsonRequest
+import com.android.volley.toolbox.StringRequest
 import com.example.dpa_android.AdapterProduto
 import com.example.dpa_android.data.MySingleton
+import org.json.JSONObject
+import org.json.JSONTokener
 
 class HomeFragment : Fragment() {
     public fun getProducts(): ArrayList<Produto> {
@@ -56,16 +61,7 @@ class HomeFragment : Fragment() {
         }
 
         btnRequisitar.setOnClickListener {
-         /*   val textView =  view?.findViewById<TextView>(R.id.textView25)
-            val url = "https://linuxjf.com/pdm2_aula2.php"
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.GET, url, null,
-                { response -> textView?.text ?:   "Resposta: $response" }
-            ) { textView?.text = "Algo deu errado!" }
 
-            MySingleton.getInstance(requireContext())!!.addToRequestQueue(JsonObjectRequest)
-            /* MySingleton.getInstance(context = this)!!.addToRequestQueue(jsonObjectRequest) */
-*/
             requisitar()
         }
 
@@ -88,25 +84,24 @@ class HomeFragment : Fragment() {
 
          fun onCreate(savedInstanceState: Bundle?) {}
 
-
-
-
-
-
         return root
     }
 
 
     fun requisitar() {
         val textView = view?.findViewById<TextView>(R.id.textView25)
-        val url = "https://linuxjf.com/pdm2_aula2.php"
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            { response -> textView?.text = "Resposta: $response" }
-        ) { textView?.text = "Algo deu errado!" }
+        val url = "https://denislima.com.br/xyz/controllers/Produtos/api.php"
+
+        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
+            {
+                    error -> textView?.text = "Error "
+            },
+            {
+                    response -> textView?.text = "Resposta: " + response
+            }
+        )
+
         MySingleton.getInstance(this.requireContext())!!.addToRequestQueue(jsonObjectRequest)
-
-
     }
 
     override fun onDestroyView() {

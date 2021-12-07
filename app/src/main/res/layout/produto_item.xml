@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/fragment_home"
     android:orientation="vertical"
+android:layout_marginBottom="15dp"
     android:layout_height="match_parent">
 
    <!-- <TextView
@@ -18,13 +19,17 @@
 -->
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/imageView"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="180dp"
 
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,6 +37,7 @@
         android:text="TextView" />
 
     <TextView
+        android:layout_gravity="center"
         android:id="@+id/preco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

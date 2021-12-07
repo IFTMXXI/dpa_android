@@ -27,7 +27,13 @@ class AdapterProduto(private val context: Context, private val produtos: Mutable
     }
 
     override fun getItemCount(): Int {
-        return 6;
+        val tamanho = produtos.size
+        if (tamanho < 6){
+            return tamanho
+        }else{
+            return 6;
+        }
+
     }
 
     inner class ProdutoViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){

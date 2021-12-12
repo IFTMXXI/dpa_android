@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +38,15 @@ class CreateProduct : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val callback = object : OnBackPressedCallback(true /** true means that the callback is enabled */) {
+            override fun handleOnBackPressed() {
+                view?.findNavController()?.navigate(R.id.action_produtos_to_navigation_dashboard)
+            }
+        }
 
+        // note that you could enable/disable the callback here as well by setting callback.isEnabled = true/false
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_product, container, false)
     }

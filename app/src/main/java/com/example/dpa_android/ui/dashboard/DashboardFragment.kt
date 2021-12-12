@@ -9,11 +9,16 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
 import com.example.dpa_android.MainAdapter
 import com.example.dpa_android.R
+import com.example.dpa_android.data.MySingleton
 import com.example.dpa_android.data.model.Produto
 import com.example.dpa_android.databinding.FragmentDashboardBinding
 import com.example.dpa_android.databinding.FragmentHomeBinding
+import com.google.gson.Gson
+import com.google.gson.JsonElement
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.io.Serializable
 
@@ -25,11 +30,7 @@ class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private var _binding: FragmentDashboardBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
     lateinit var gridView: GridView
     var thiscontext: Context? = null
     public var produtos: ArrayList<Produto> = ArrayList()
@@ -38,14 +39,13 @@ class DashboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
+
     ): View? {
         dashboardViewModel =
             ViewModelProvider(this).get(DashboardViewModel::class.java)
-
         _binding =  FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         thiscontext = getActivity()?.getApplicationContext()
 
         val btnSearch: Button = binding.search
@@ -55,7 +55,6 @@ class DashboardFragment : Fragment() {
             view.findNavController().navigate(R.id.navigationCreateProduct)
         }
         btnSearch.setOnClickListener {
-
             displayList = produtos.filter { p -> p.nome.contains(searchInput.text.toString(),ignoreCase = true)} as ArrayList<Produto>
             createGrid()
         }
@@ -79,7 +78,6 @@ class DashboardFragment : Fragment() {
 
     fun createGrid(){
         gridView = binding.productGrid
-
         val mainAdapter = thiscontext?.let { MainAdapter(it, displayList) }
         gridView.adapter = mainAdapter
         gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -91,7 +89,6 @@ class DashboardFragment : Fragment() {
             }
         }
     }
-
 
 
 

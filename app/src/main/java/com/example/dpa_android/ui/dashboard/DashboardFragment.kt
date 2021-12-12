@@ -62,7 +62,9 @@ class DashboardFragment : Fragment() {
             displayList = produtos.filter { p -> p.nome.contains(searchInput.text.toString(),ignoreCase = true)} as ArrayList<Produto>
             createGrid()
         }
-
+        if(produtos.size != 0){
+            produtos.clear()
+        }
         val k: ArrayList<Produto> = ArrayList()
         val url = "https://denislima.com.br/xyz/controllers/Produtos/api.php"
         val jsonObjectRequest = StringRequest(

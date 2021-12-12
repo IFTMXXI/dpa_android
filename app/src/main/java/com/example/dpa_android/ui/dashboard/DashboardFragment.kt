@@ -64,7 +64,6 @@ class DashboardFragment : Fragment() {
         }
 
         val k: ArrayList<Produto> = ArrayList()
-        val textView = view?.findViewById<TextView>(R.id.textView25)
         val url = "https://denislima.com.br/xyz/controllers/Produtos/api.php"
         val jsonObjectRequest = StringRequest(
             Request.Method.GET, url,
@@ -81,14 +80,14 @@ class DashboardFragment : Fragment() {
                     val qtdeEstoque = element.asJsonArray[i].asJsonObject["qtdeEstoque"].asInt
                     val categoria = element.asJsonArray[i].asJsonObject["categoria"].asString
                     val product: Produto =
-                        Produto(produtoss, R.drawable.ic_launcher_background, valor, descricao)
+                        Produto(produtoss, "2911210721181097766731.png", valor,qtdeEstoque, descricao,categoria)
                     produtos.add(product)
                 }
                 displayList = produtos
                 createGrid()
             },
             { error ->
-                textView?.text = "Error " + error
+                //textView?.text = "Error " + error
             },
         )
         MySingleton.getInstance(this.requireContext())!!.addToRequestQueue(jsonObjectRequest)

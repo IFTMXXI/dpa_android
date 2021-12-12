@@ -1,6 +1,8 @@
 package com.example.dpa_android.data.model;
 
-public class Noticia {
+import java.io.Serializable;
+
+public class Noticia implements Serializable {
     public String nome;
     public String imagem;
     public String categoria;

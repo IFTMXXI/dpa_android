@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dpa_android.data.model.Produto
 import com.example.dpa_android.databinding.FragmentProdutosBinding
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_produtos.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,10 +46,12 @@ class Produtos : Fragment(R.layout.fragment_produtos) {
         binding = FragmentProdutosBinding.bind(view)
         val args = arguments
         val produto = args!!.getSerializable("produto") as Produto
-        binding.textView4.text = produto.nome
-        binding.imageView3.setImageResource(produto.imagem)
+        binding.textView4.text = "Título: "+produto.nome
+        Picasso.get().load("https://denislima.com.br/xyz/uploads/Produtos/"+produto.imagem).into(binding.imageView3);
         binding.textView3.text = "Valor: "+produto.valor
-        binding.textView5.text = produto.descricao
+        binding.textView5.text = "Descrição: "+produto.descricao
+        binding.textView7.text = "Quantidade: "+produto.quantidade
+        binding.textView8.text = "Categoria: "+produto.categoria
     }
 
     override fun onCreateView(

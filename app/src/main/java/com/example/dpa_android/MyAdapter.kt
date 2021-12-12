@@ -20,6 +20,7 @@ internal class MainAdapter(
     private lateinit var imageView: ImageView
     private lateinit var nome: TextView
     private lateinit var valor: TextView
+    private lateinit var quantidade: TextView
     override fun getCount(): Int {
         return produto.size
     }
@@ -46,11 +47,12 @@ internal class MainAdapter(
         imageView = convertView!!.findViewById(R.id.imageView)
         nome = convertView.findViewById(R.id.textView)
         valor = convertView.findViewById(R.id.textView2)
+        quantidade = convertView.findViewById(R.id.textView6)
 
-        Picasso.get().load("https://denislima.com.br/xyz/uploads/Produtos/0410210550261051809123.png").into(imageView);
-        nome.text = produto[position].imagem
-        //nome.text = produto[position].nome
-        valor.text = "Valor: "+produto[position].valor
+        Picasso.get().load("https://denislima.com.br/xyz/uploads/Produtos/"+produto[position].imagem).into(imageView);
+        nome.text = produto[position].nome
+        valor.text = "R$ " +produto[position].valor
+        quantidade.text = "Acervo "+produto[position].quantidade
         return convertView
     }
 }

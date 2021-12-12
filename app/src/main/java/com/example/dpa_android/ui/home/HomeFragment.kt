@@ -64,13 +64,38 @@ class HomeFragment() : Fragment() {
 
         }
 
-        produtos.add(Produto("1 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        val recyclerView_produtos = binding.RecyclerViewID
-        recyclerView_produtos.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        recyclerView_produtos.setHasFixedSize(true)
-        val adapterProduto = AdapterProduto(this.requireContext(), produtos)
-        recyclerView_produtos.adapter = adapterProduto
-
+        val k: ArrayList<Produto> = ArrayList()
+        val textView = view?.findViewById<TextView>(R.id.textView25)
+        val url = "https://denislima.com.br/xyz/controllers/Produtos/api.php"
+        val jsonObjectRequest = StringRequest(
+            Request.Method.GET, url,
+            { response ->
+                val gson = Gson()
+                val element = gson.fromJson(response, JsonElement::class.java)
+                val e = element.asJsonArray
+                var s = ""
+                for (i in 0 until e.size()) {
+                    val id = element.asJsonArray[i].asJsonObject["id"].asInt
+                    val produtoss = element.asJsonArray[i].asJsonObject["produto"].asString
+                    val descricao = element.asJsonArray[i].asJsonObject["descricao"].asString
+                    val valor = element.asJsonArray[i].asJsonObject["valor"].asFloat
+                    val qtdeEstoque = element.asJsonArray[i].asJsonObject["qtdeEstoque"].asInt
+                    val categoria = element.asJsonArray[i].asJsonObject["categoria"].asString
+                    val product: Produto =
+                        Produto(produtoss, R.drawable.ic_launcher_background, valor, descricao)
+                    produtos.add(product)
+                }
+                val recyclerView_produtos = binding.RecyclerViewID
+                recyclerView_produtos.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                recyclerView_produtos.setHasFixedSize(true)
+                val adapterProduto = AdapterProduto(this.requireContext(), produtos)
+                recyclerView_produtos.adapter = adapterProduto
+            },
+            { error ->
+                textView?.text = "Error " + error
+            },
+        )
+        MySingleton.getInstance(this.requireContext())!!.addToRequestQueue(jsonObjectRequest)
 
         return root
     }

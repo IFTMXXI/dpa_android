@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.Button
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.dpa_android.R
@@ -19,6 +18,26 @@ import com.example.dpa_android.AdapterProduto
 import com.example.dpa_android.data.MySingleton
 import com.google.gson.Gson
 import com.google.gson.JsonElement
+import java.io.IOException
+
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
+
+import java.io.InputStream
+
+import java.net.HttpURLConnection
+
+import java.net.URL
+import java.io.ByteArrayOutputStream
+
+import java.io.BufferedInputStream
+
+
+
+
+
+
 
 
 class HomeFragment() : Fragment() {
@@ -33,8 +52,6 @@ class HomeFragment() : Fragment() {
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requisitarProdutos(produtos)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -44,8 +61,6 @@ class HomeFragment() : Fragment() {
         val root: View = binding.root
         val btnViewProduct: Button = binding.buttonViewProduct
         val btnViewNews: Button = binding.buttonViewNews
-        val btnRequisitar: Button = binding.button4
-        btnRequisitar.setText("Carregar Produtos")
 
         btnViewProduct.setOnClickListener { view ->
             view.findNavController().navigate(R.id.navigation_dashboard)
@@ -53,19 +68,6 @@ class HomeFragment() : Fragment() {
         btnViewNews.setOnClickListener { view ->
             view.findNavController().navigate(R.id.navigation_notifications)
         }
-
-        btnRequisitar.setOnClickListener {
-            //requisitarProdutos(produtos)
-            val recyclerView_produtos = binding.RecyclerViewID
-            recyclerView_produtos.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            recyclerView_produtos.setHasFixedSize(true)
-            val adapterProduto = AdapterProduto(this.requireContext(), produtos)
-            recyclerView_produtos.adapter = adapterProduto
-
-        }
-
-        val k: ArrayList<Produto> = ArrayList()
-        val textView = view?.findViewById<TextView>(R.id.textView25)
         val url = "https://denislima.com.br/xyz/controllers/Produtos/api.php"
         val jsonObjectRequest = StringRequest(
             Request.Method.GET, url,
@@ -73,7 +75,6 @@ class HomeFragment() : Fragment() {
                 val gson = Gson()
                 val element = gson.fromJson(response, JsonElement::class.java)
                 val e = element.asJsonArray
-                var s = ""
                 for (i in 0 until e.size()) {
                     val id = element.asJsonArray[i].asJsonObject["id"].asInt
                     val produtoss = element.asJsonArray[i].asJsonObject["produto"].asString
@@ -92,46 +93,13 @@ class HomeFragment() : Fragment() {
                 recyclerView_produtos.adapter = adapterProduto
             },
             { error ->
-                textView?.text = "Error " + error
+                //textView?.text = "Error " + error
             },
         )
         MySingleton.getInstance(this.requireContext())!!.addToRequestQueue(jsonObjectRequest)
-
         return root
     }
 
-    private fun requisitarProdutos(
-        produtos: ArrayList<Produto> = ArrayList()
-    ): ArrayList<Produto> {
-        val k: ArrayList<Produto> = ArrayList()
-        val textView = view?.findViewById<TextView>(R.id.textView25)
-        val url = "https://denislima.com.br/xyz/controllers/Produtos/api.php"
-        val jsonObjectRequest = StringRequest(
-            Request.Method.GET, url,
-            { response ->
-                val gson = Gson()
-                val element = gson.fromJson(response, JsonElement::class.java)
-                val e = element.asJsonArray
-                var s = ""
-                for (i in 0 until e.size()) {
-                    val id = element.asJsonArray[i].asJsonObject["id"].asInt
-                    val produtoss = element.asJsonArray[i].asJsonObject["produto"].asString
-                    val descricao = element.asJsonArray[i].asJsonObject["descricao"].asString
-                    val valor = element.asJsonArray[i].asJsonObject["valor"].asFloat
-                    val qtdeEstoque = element.asJsonArray[i].asJsonObject["qtdeEstoque"].asInt
-                    val categoria = element.asJsonArray[i].asJsonObject["categoria"].asString
-                    val product: Produto =
-                        Produto(produtoss, R.drawable.ic_launcher_background, valor, descricao)
-                    produtos.add(product)
-                }
-            },
-            { error ->
-                textView?.text = "Error " + error
-            },
-        )
-        MySingleton.getInstance(this.requireContext())!!.addToRequestQueue(jsonObjectRequest)
-        return produtos
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

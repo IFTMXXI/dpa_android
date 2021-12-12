@@ -1,6 +1,7 @@
 package com.example.dpa_android
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,11 @@ import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dpa_android.data.model.Produto
 import com.example.dpa_android.ui.home.HomeFragment
+import android.graphics.Bitmap
+import android.icu.number.NumberFormatter.with
+import com.squareup.picasso.Picasso
+import java.net.URL
+
 
 class AdapterProduto(private val context: Context, private val produtos: MutableList<Produto>): RecyclerView.Adapter<AdapterProduto.ProdutoViewHolder>()  {
 
@@ -23,7 +29,7 @@ class AdapterProduto(private val context: Context, private val produtos: Mutable
     override fun onBindViewHolder(holder: ProdutoViewHolder, position: Int) {
        holder.nome.text = produtos[position].nome
         holder.preco.text = produtos[position].valor.toString()
-        holder.image.setImageResource(produtos[position].imagem)
+        Picasso.get().load("https://denislima.com.br/xyz/uploads/Clientes/0410210550261051809123.png").into(holder.image);
     }
 
     override fun getItemCount(): Int {
@@ -37,6 +43,7 @@ class AdapterProduto(private val context: Context, private val produtos: Mutable
     }
 
     inner class ProdutoViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+
         val nome = itemView.findViewById<TextView>(R.id.title)
         val image = itemView.findViewById<ImageView>(R.id.imageView)
         val preco = itemView.findViewById<TextView>(R.id.preco)

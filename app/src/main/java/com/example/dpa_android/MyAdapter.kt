@@ -1,6 +1,7 @@
 package com.example.dpa_android
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.dpa_android.data.model.Produto
+import com.squareup.picasso.Picasso
 
 internal class MainAdapter(
     private val context: Context,
@@ -40,11 +42,14 @@ internal class MainAdapter(
         if (convertView == null) {
             convertView = layoutInflater!!.inflate(R.layout.row_item, null)
         }
+
         imageView = convertView!!.findViewById(R.id.imageView)
         nome = convertView.findViewById(R.id.textView)
         valor = convertView.findViewById(R.id.textView2)
-        imageView.setImageResource(produto[position].imagem)
-        nome.text = produto[position].nome
+
+        Picasso.get().load("https://denislima.com.br/xyz/uploads/Produtos/0410210550261051809123.png").into(imageView);
+        nome.text = produto[position].imagem
+        //nome.text = produto[position].nome
         valor.text = "Valor: "+produto[position].valor
         return convertView
     }

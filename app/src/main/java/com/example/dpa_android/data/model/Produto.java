@@ -4,14 +4,16 @@ import java.io.Serializable;
 
 public class Produto implements Serializable {
     public String nome;
-    public int imagem;
+    public String imagem;
     public float valor;
+    public int quantidade;
     public String descricao;
 
-    public Produto(String nome, int imagem, float valor, String descricao) {
+    public Produto(String nome, String imagem, float valor, int quantidade, String descricao) {
         this.nome = nome;
         this.imagem = imagem;
         this.valor = valor;
+        this.quantidade = quantidade;
         this.descricao = descricao;
     }
 }

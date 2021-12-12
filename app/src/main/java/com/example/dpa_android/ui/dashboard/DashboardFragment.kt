@@ -1,6 +1,7 @@
 package com.example.dpa_android.ui.dashboard
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,10 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
+import com.example.dpa_android.AdapterProduto
 import com.example.dpa_android.MainAdapter
 import com.example.dpa_android.R
 import com.example.dpa_android.data.MySingleton
@@ -20,6 +23,7 @@ import com.example.dpa_android.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_news.*
 import java.io.Serializable
 
 
@@ -59,17 +63,37 @@ class DashboardFragment : Fragment() {
             createGrid()
         }
 
-        produtos.add(Produto("1 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("2 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("3 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("4 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("5 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("6 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("7 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("8 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
-        produtos.add(Produto("9 Produto",R.drawable.ic_launcher_background,15.2f,"descrição"))
+        val k: ArrayList<Produto> = ArrayList()
+        val textView = view?.findViewById<TextView>(R.id.textView25)
+        val url = "https://denislima.com.br/xyz/controllers/Produtos/api.php"
+        val jsonObjectRequest = StringRequest(
+            Request.Method.GET, url,
+            { response ->
+                val gson = Gson()
+                val element = gson.fromJson(response, JsonElement::class.java)
+                val e = element.asJsonArray
+                var s = ""
+                for (i in 0 until e.size()) {
+                    val id = element.asJsonArray[i].asJsonObject["id"].asInt
+                    val produtoss = element.asJsonArray[i].asJsonObject["produto"].asString
+                    val descricao = element.asJsonArray[i].asJsonObject["descricao"].asString
+                    val valor = element.asJsonArray[i].asJsonObject["valor"].asFloat
+                    val qtdeEstoque = element.asJsonArray[i].asJsonObject["qtdeEstoque"].asInt
+                    val categoria = element.asJsonArray[i].asJsonObject["categoria"].asString
+                    val product: Produto =
+                        Produto(produtoss, R.drawable.ic_launcher_background, valor, descricao)
+                    produtos.add(product)
+                }
+                displayList = produtos
+                createGrid()
+            },
+            { error ->
+                textView?.text = "Error " + error
+            },
+        )
+        MySingleton.getInstance(this.requireContext())!!.addToRequestQueue(jsonObjectRequest)
 
-        displayList = produtos
+
 
         createGrid()
         return root

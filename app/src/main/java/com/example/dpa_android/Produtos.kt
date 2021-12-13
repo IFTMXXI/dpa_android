@@ -10,6 +10,13 @@ import com.example.dpa_android.data.model.Produto
 import com.example.dpa_android.databinding.FragmentProdutosBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_produtos.*
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,8 +44,13 @@ class Produtos : Fragment(R.layout.fragment_produtos) {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        /*
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.action_produtos_to_navigation_dashboard)
+        }*/
 
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,6 +64,15 @@ class Produtos : Fragment(R.layout.fragment_produtos) {
         binding.textView5.text = "Descrição: "+produto.descricao
         binding.textView7.text = "Quantidade: "+produto.quantidade
         binding.textView8.text = "Categoria: "+produto.categoria
+
+        val callback = object : OnBackPressedCallback(true /** true means that the callback is enabled */) {
+            override fun handleOnBackPressed() {
+                view.findNavController().navigate(R.id.action_produtos_to_navigation_dashboard)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+
     }
 
     override fun onCreateView(

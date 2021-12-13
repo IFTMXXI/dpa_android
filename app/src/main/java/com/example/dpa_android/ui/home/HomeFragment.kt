@@ -82,8 +82,9 @@ class HomeFragment() : Fragment() {
                     val valor = element.asJsonArray[i].asJsonObject["valor"].asFloat
                     val qtdeEstoque = element.asJsonArray[i].asJsonObject["qtdeEstoque"].asInt
                     val categoria = element.asJsonArray[i].asJsonObject["categoria"].asString
+                    val arquivo = element.asJsonArray[i].asJsonObject["arquivo"].asString
                     val product: Produto =
-                        Produto(produtoss, "2911210721181097766731.png", valor,qtdeEstoque, descricao,categoria)
+                        Produto(produtoss, arquivo, valor,qtdeEstoque, descricao,categoria)
                     produtos.add(product)
                 }
                 val recyclerView_produtos = binding.RecyclerViewID

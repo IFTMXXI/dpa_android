@@ -82,7 +82,6 @@ class DashboardFragment : Fragment() {
                     val qtdeEstoque = element.asJsonArray[i].asJsonObject["qtdeEstoque"].asInt
                     val categoria = element.asJsonArray[i].asJsonObject["categoria"].asString
                     val arquivo = element.asJsonArray[i].asJsonObject["arquivo"].asString
-
                     val product: Produto =
                         Produto(produtoss, arquivo, valor,qtdeEstoque, descricao,categoria)
                     produtos.add(product)

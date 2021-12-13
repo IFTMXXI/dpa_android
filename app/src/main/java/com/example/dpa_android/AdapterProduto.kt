@@ -29,7 +29,7 @@ class AdapterProduto(private val context: Context, private val produtos: Mutable
     override fun onBindViewHolder(holder: ProdutoViewHolder, position: Int) {
        holder.nome.text = produtos[position].nome
         holder.preco.text = produtos[position].valor.toString()
-        //Picasso.get().load("https://denislima.com.br/xyz/uploads/Clientes/0410210550261051809123.png").into(holder.image);
+
         Picasso.get().load("https://denislima.com.br/xyz/uploads/Produtos/"+produtos[position].imagem).into(holder.image);
 
     }

@@ -48,7 +48,6 @@ internal class MainAdapter(
         nome = convertView.findViewById(R.id.textView)
         valor = convertView.findViewById(R.id.textView2)
         quantidade = convertView.findViewById(R.id.textView6)
-
         Picasso.get().load("https://denislima.com.br/xyz/uploads/Produtos/"+produto[position].imagem).into(imageView);
         nome.text = produto[position].nome
         valor.text = "R$ " +produto[position].valor

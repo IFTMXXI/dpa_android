@@ -92,6 +92,7 @@ class HomeFragment() : Fragment() {
                 recyclerView_produtos.setHasFixedSize(true)
                 val adapterProduto = AdapterProduto(this.requireContext(), produtos)
                 recyclerView_produtos.adapter = adapterProduto
+
             },
             { error ->
                 //textView?.text = "Error " + error

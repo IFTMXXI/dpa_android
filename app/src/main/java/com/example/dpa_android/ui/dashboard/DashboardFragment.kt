@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.example.dpa_android.AdapterProduto
+import com.example.dpa_android.ClienteFragment
 import com.example.dpa_android.MainAdapter
 import com.example.dpa_android.R
 import com.example.dpa_android.data.MySingleton
@@ -39,6 +41,11 @@ class DashboardFragment : Fragment() {
     var thiscontext: Context? = null
     public var produtos: ArrayList<Produto> = ArrayList()
     private var displayList: ArrayList<Produto> = ArrayList()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true);
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -117,10 +124,13 @@ class DashboardFragment : Fragment() {
         }
     }
 
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                requireActivity().onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

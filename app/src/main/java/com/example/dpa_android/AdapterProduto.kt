@@ -19,10 +19,11 @@ import java.net.URL
 
 
 class AdapterProduto(private val context: Context, private val produtos: MutableList<Produto>): RecyclerView.Adapter<AdapterProduto.ProdutoViewHolder>()  {
-
+    var publicContext : Context? = null;
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProdutoViewHolder {
         val itemLista = LayoutInflater.from(context).inflate(R.layout.produto_item, parent, false)
         val holder = ProdutoViewHolder(itemLista)
+        publicContext = context;
         return holder
     }
 

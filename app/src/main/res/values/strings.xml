@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">dpa_android</string>
     <string name="title_home">Home</string>
+    <string name="title_clientes">Clientes</string>
     <string name="title_produtos">Produtos</string>
     <string name="title_noticias">Noticias</string>
     <!-- Strings related to login -->

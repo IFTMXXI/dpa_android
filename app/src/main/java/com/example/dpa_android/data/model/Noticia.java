@@ -8,12 +8,14 @@ public class Noticia implements Serializable {
     public String categoria;
     public String sintese;
     public String texto;
+    public String hora;
 
-    public Noticia(String nome, String imagem, String categoria, String sintese, String texto) {
+    public Noticia(String nome, String imagem, String categoria, String sintese, String texto, String hora) {
         this.nome = nome;
         this.imagem = imagem;
         this.categoria = categoria;
         this.sintese = sintese;
         this.texto = texto;
+        this.hora = hora;
     }
 }

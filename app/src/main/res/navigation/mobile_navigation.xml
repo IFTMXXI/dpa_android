@@ -9,7 +9,21 @@
         android:id="@+id/navigation_home"
         android:name="com.example.dpa_android.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_news"
+            app:destination="@id/news" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_cliente"
+        android:name="com.example.dpa_android.ClienteFragment"
+        android:label="@string/title_clientes"
+        tools:layout="@layout/cliente_item_list" >
+        <action
+            android:id="@+id/action_navigation_cliente_to_clientInfo"
+            app:destination="@id/clientInfo" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -51,7 +65,7 @@
     <fragment
         android:id="@+id/createNews"
         android:name="com.example.dpa_android.CreateNews"
-        android:label="CreateNews">
+        android:label="Criar Noticia">
         <action
             android:id="@+id/action_createNews_to_navigation_notifications"
             app:destination="@id/navigation_notifications" />
@@ -59,7 +73,7 @@
     <fragment
         android:id="@+id/produtos"
         android:name="com.example.dpa_android.Produtos"
-        android:label="fragment_produtos"
+        android:label="Informações do Produtos"
         tools:layout="@layout/fragment_produtos" >
         <action
             android:id="@+id/action_produtos_to_navigation_dashboard"
@@ -72,10 +86,15 @@
     <fragment
         android:id="@+id/news"
         android:name="com.example.dpa_android.News"
-        android:label="fragment_news"
+        android:label="Informações da Noticia"
         tools:layout="@layout/fragment_news" >
         <action
             android:id="@+id/action_news_to_navigation_notifications"
             app:destination="@id/navigation_notifications" />
     </fragment>
+    <fragment
+        android:id="@+id/clientInfo"
+        android:name="com.example.dpa_android.ClientInfo"
+        android:label="Informações do Cliente"
+        tools:layout="@layout/fragment_client_info" />
 </navigation>

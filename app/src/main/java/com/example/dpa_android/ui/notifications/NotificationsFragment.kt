@@ -3,6 +3,7 @@ package com.example.dpa_android.ui.notifications
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
+import com.example.dpa_android.ClienteFragment
 
 import com.example.dpa_android.R
 import com.example.dpa_android.data.MySingleton
@@ -34,6 +36,11 @@ class NotificationsFragment : Fragment() {
     var thiscontext: Context? = null
     public var noticias: ArrayList<Noticia> = ArrayList()
     private var displayList: ArrayList<Noticia> = ArrayList()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true);
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +80,8 @@ class NotificationsFragment : Fragment() {
                     val sintese = element.asJsonArray[i].asJsonObject["sintese"].asString
                     val categoria = element.asJsonArray[i].asJsonObject["tipoNoticia"].asString
                     val arquivo = element.asJsonArray[i].asJsonObject["arquivo"].asString
-                    val product: Noticia = Noticia(produtoss, arquivo, categoria,sintese, descricao)
+                    val hora = element.asJsonArray[i].asJsonObject["hora"].asString
+                    val product: Noticia = Noticia(produtoss, arquivo, categoria,sintese, descricao, hora)
                     noticias.add(product)
 
                 }
@@ -108,8 +116,13 @@ class NotificationsFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                requireActivity().onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

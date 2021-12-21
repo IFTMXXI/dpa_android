@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.example.dpa_android.data.model.Noticia
@@ -44,11 +45,7 @@ class News : Fragment(R.layout.fragment_news) {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        /*
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_produtos_to_navigation_dashboard)
-        }*/
-
+        setHasOptionsMenu(true);
     }
 
 
@@ -63,15 +60,6 @@ class News : Fragment(R.layout.fragment_news) {
         binding.textView3.text = "Valor: "+produto.categoria
         binding.textView5.text = "sintese: "+produto.sintese
         binding.textView7.text = "texto: "+produto.texto
-
-        val callback = object : OnBackPressedCallback(true /** true means that the callback is enabled */) {
-            override fun handleOnBackPressed() {
-                view.findNavController().navigate(R.id.action_produtos_to_navigation_dashboard)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
-
     }
 
     override fun onCreateView(
@@ -81,6 +69,16 @@ class News : Fragment(R.layout.fragment_news) {
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_produtos, container, false)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                requireActivity().onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
